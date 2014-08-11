@@ -1,0 +1,6 @@
+{% extends "log_layout.html" %}
+{% block page_title %}Page not found{% endblock %}
+{% block content %}
+Requested page not found<br/>
+<a href="{{ url_for('index') }}">Back Home<a/>
+{% endblock %}
