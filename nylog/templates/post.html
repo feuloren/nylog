@@ -1,6 +1,6 @@
 {% extends "log_layout.html" %}
-{% block page_title %}NYC Log - {{ title }}{% endblock %}
-{% block title %}{{ title }}{% endblock %}
+{% block page_title %}NYC Log - {{ post.title }}{% endblock %}
+{% block title %}{{ post.title }} <small>{{ post.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</small>{% endblock %}
 {% block content %}
-{{ id }}
+{{ post.content }}
 {% endblock %}

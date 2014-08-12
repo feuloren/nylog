@@ -11,7 +11,8 @@ class User(db.Model):
     """
 
     __tablename__ = 'user'
-    login = db.Column(db.String(20), primary_key = True)
+    id = db.Column(db.Integer, primary_key = True)
+    login = db.Column(db.String(20))
     password = db.Column(db.String(128))
 
 
@@ -25,6 +26,7 @@ class Post(db.Model):
     __tablename__ = 'post'
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String(30), nullable = False)
+    slug = db.Column(db.String(30))
     content = db.Column(db.Text, nullable = False)
     created_at = db.Column(db.DateTime, nullable = False)
     covered_period = db.Column(db.Enum('day', 'week'))
@@ -39,7 +41,7 @@ class Post(db.Model):
         pass
 
 # User allowed to views posts filled under a certain category
-users_categories = db.Table('user_categories', db.metadata,
+users_categories = db.Table('users_categories', db.metadata,
                             db.Column('user', db.Integer,
                                       db.ForeignKey('user.id')),
                             db.Column('category', db.String(10),

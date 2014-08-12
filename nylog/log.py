@@ -8,4 +8,5 @@ def index():
 
 @app.route('/post/<int:id>/<slug>')
 def show_post(id,  slug):
-    return render_template("post.html", title = slug, id = id)
+    post = Post.query.get_or_404(id)
+    return render_template("post.html", post = post)
