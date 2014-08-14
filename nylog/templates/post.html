@@ -1,6 +1,6 @@
 {% extends "log_layout.html" %}
 {% block page_title %}NYC Log - {{ post.title }}{% endblock %}
-{% block title %}{{ post.title }} <small>{{ post.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</small>{% endblock %}
+{% block title %}{{ post.title }} <small>{{ post.created_at | format_date_local }}</small>{% endblock %}
 {% block content %}
-{{ post.content }}
+{{ post.content | paragraphs }}
 {% endblock %}
