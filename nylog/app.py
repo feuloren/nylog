@@ -1,7 +1,12 @@
 from flask import Flask, render_template
+from flask.ext.babel import Babel
 import arrow
 
 app = Flask('nylog')
+
+app.config.from_envvar('NYLOG_CONFIG')
+
+babel = Babel(app)
 
 @app.errorhandler(404)
 def handler_page_not_found(e):
