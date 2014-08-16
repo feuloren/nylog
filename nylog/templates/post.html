@@ -5,3 +5,7 @@
 {% block content %}
 {{ post.content | paragraphs }}
 {% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="{{ url_for('static', filename = 'js/images.js') }}"></script>
+{% endblock %}

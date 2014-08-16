@@ -12,6 +12,7 @@ body {
 
 #content p {
     font-size: 22px;
+    text-align: justify;
 }
 
 h1 {
@@ -60,4 +61,34 @@ h1 small {
         font-size: 22px;
         padding: 20px;
     }
+}
+
+#content .article-width {
+    width: 100%;
+    height: auto;
+}
+
+#content .half-width {
+    width: 50%;
+    height: auto;
+}
+
+#content .third-width {
+    width: 33%;
+    height: auto;
+}
+
+.float-left {
+    float: left;
+}
+
+img.float-left, img.float-right {
+    margin-top: 22px;
+    margin-bottom: 22px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.float-right {
+    float: right;
 }
