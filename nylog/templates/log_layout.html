@@ -11,6 +11,15 @@
     </div>
     <div id="content">
       <h1>{% block title %}{% trans %}Florent's NYC Log{% endtrans %}{% endblock %}</h1>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul class="flash-messages">
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
       {% block content %}{% endblock %}
     </div>
     {% block scripts %}{% endblock %}

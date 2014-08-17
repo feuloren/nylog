@@ -1,0 +1,13 @@
+{% extends "log_layout.html" %}
+{% block page_title %}{% trans %}NYC Log - Authentication{% endtrans %}{% endblock %}
+{% block navigation %}
+<a href="{{ url_for('index') }}"{% trans %}>&lt Home{% endtrans %}</a>
+{% endblock %}
+{% block content %}
+  <form method="POST" action="{{ url_for('login') }}">
+    {{ form.hidden_tag() }}
+    <div>{{ form.login.label }} {{ form.login() }}</div>
+    <div>{{ form.password.label }} {{ form.password() }}</div>
+    <input type="submit" value="{% trans %}Login !{% endtrans %}"/>
+  </form>
+{% endblock %}

@@ -1,6 +1,7 @@
 from nylog import app
 
 from flask.ext.sqlalchemy import SQLAlchemy
+from sqlalchemy.orm.exc import NoResultFound
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/nylog.db'
 db = SQLAlchemy(app)
@@ -13,7 +14,7 @@ class User(db.Model):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key = True)
     login = db.Column(db.String(20))
-    password = db.Column(db.String(128))
+    password = db.Column(db.String(176))
 
 
 posts_categories = db.Table('posts_categories', db.metadata,
