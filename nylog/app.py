@@ -4,7 +4,10 @@ import arrow
 
 app = Flask('nylog')
 
-app.config.from_envvar('NYLOG_CONFIG')
+if not(app.config.from_envvar('NYLOG_CONFIG', True)):
+    from sys import stderr
+    print("Warning : no config loaded, set the environment variable NYLOG_CONFIG to point the file storing the config",
+          file = stderr)
 
 babel = Babel(app)
 
