@@ -7,7 +7,15 @@
   </head>
   <body>
     <div id="navigation">
-      {% block navigation %}{% endblock %}
+      <ul>
+      {% block navigation %}
+        {% if current_user.is_authenticated() %}
+          <li><a href="{{ url_for('logout') }}">{% trans %}Logout{% endtrans %}</a></li>
+        {% else %}
+          <li><a href="{{ url_for('ask_login') }}">{% trans  %}Login{% endtrans %}</a></li>
+        {% endif %}
+      {% endblock %}
+      </ul>
     </div>
     <div id="content">
       <h1>{% block title %}{% trans %}Florent's NYC Log{% endtrans %}{% endblock %}</h1>
