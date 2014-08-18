@@ -1,0 +1,66 @@
+{% extends "admin/layout.html" %}
+{% block page_title %}{% trans %}Readers{% endtrans %}{% endblock %}
+{% block content %}
+
+
+
+<h2 class="content-subhead">{% trans %}Add a reader{% endtrans %}</h2>
+{% if form_new.errors %}
+  <ul class="errors">
+    {% for field_name, field_errors in form_new.errors|dictsort if field_errors %}
+      {% for error in field_errors %}
+        <li>{{ form_new[field_name].label }}: {{ error }}</li>
+      {% endfor %}
+    {% endfor %}
+  </ul>
+{% endif %}
+<form class="pure-form pure-form-aligned" action="{{ url_for('create_user') }}" method="POST">
+  <fieldset>
+    {{ form_new.hidden_tag() }}
+    <div class="pure-control-group">
+      {{ form_new.login.label }}
+      {{ form_new.login }}
+    </div>
+      
+    <div class="pure-control-group">
+      {{ form_new.password.label }}
+      {{ form_new.password }}
+    </div>
+
+    <div class="pure-controls">
+      <input type="submit" class="pure-button pure-button-primary" value="{% trans %}Add{% endtrans %}"/>
+    </div>
+  </fieldset>
+</form>
+
+<h2 class="content-subhead">{% trans %}Current readers{% endtrans %}</h2>
+<table class="pure-table pure-table-bordered pure-table-striped">
+  <thead>
+    <tr>
+      <th>{% trans %}ID{% endtrans %}</th>
+      <th>{% trans %}Login{% endtrans %}</th>
+      <th>{% trans %}Delete{% endtrans %}</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for user in users %}
+    <tr>
+      <td>{{ user.id }}</td>
+      <td>{{ user.login }}</td>
+      <td>
+        {# The 'delete' button is actually a POST form
+        thanks to that we can benefit from the csrf protection
+        and avoid potential security issues
+        #}
+        {% with form = delete_user(user) %}
+          <form action="{{ url_for('delete_user') }}" method="POST">
+            {{ form.id }}{{ form.csrf_token }}
+            <button type="submit" class="pure-button">X</button>
+          </form>
+        {% endwith %}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</ul>
+{% endblock %}
