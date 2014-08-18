@@ -1,10 +1,11 @@
 from flask import render_template, request, redirect, url_for, flash
-from flask.ext.login import LoginManager, login_required, login_user, logout_user
+from flask.ext.login import LoginManager, login_required, login_user, logout_user, current_user
 from flask_wtf import Form
 from wtforms import StringField, PasswordField, HiddenField
 from wtforms.validators import DataRequired
 from flask_scrypt import check_password_hash
 from gettext import gettext as _
+from functools import wraps
 
 from .app import app
 from .models import db, User, NoResultFound
@@ -33,9 +34,32 @@ class NYLogUser:
     def get_id(self):
         return self.user.login
 
+    @property
+    def id(self):
+        return self.user.id
+
+    @property
+    def login(self):
+        return self.user.login
+
+    @property
+    def is_admin(self):
+        return self.login == app.config['NYLOG_ADMIN']
+
     def check_password(self, password):
         # hash stored in the database = scrypt hash (88 chars) + salt (88 chars)
         return check_password_hash(password, self.user.password[:88].encode('utf-8'), self.user.password[88:])
+
+def admin_required(f):
+    "Decorate a view with this function to restrict the access to the log admin"
+    @wraps(f)
+    @login_required
+    def wrapper(*args, **kwargs):
+        if current_user.is_admin:
+            return f(*args, **kwargs)
+        else:
+            return render_template('admin_only.html'), 403
+    return wrapper
 
 @login_manager.user_loader
 def load_user(login):
