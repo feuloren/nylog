@@ -3,7 +3,6 @@ from nylog import app
 from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy.orm.exc import NoResultFound
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/nylog.db'
 db = SQLAlchemy(app)
 
 class User(db.Model):

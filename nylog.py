@@ -1,4 +1,8 @@
-from nylog import app
+import sys
+from nylog import app, db
 
 if __name__ == '__main__':
-    app.run(host = '0.0.0.0')
+    if 'create_db' in sys.argv:
+        db.create_all()
+    else:
+        app.run(host = '0.0.0.0')

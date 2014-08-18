@@ -5,7 +5,8 @@ import arrow
 app = Flask('nylog')
 
 app.config.update(
-    NYLOG_ADMIN = 'admin'
+    NYLOG_ADMIN = 'admin',
+    SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/nylog.db'
     )
 if not(app.config.from_envvar('NYLOG_CONFIG', True)):
     from sys import stderr
