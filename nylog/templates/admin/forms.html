@@ -1,0 +1,15 @@
+{% macro pure_aligned_field(field) -%}
+  {% if field.errors %}
+    <div class="form-error">
+      <ul class="error">
+        {% for error in field.errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  <div class="pure-control-group">
+    {{ field.label }}
+    {{ field }}
+  </div>
+{%- endmacro %}

@@ -1,31 +1,15 @@
 {% extends "admin/layout.html" %}
+{% import "admin/forms.html" as forms %}
 {% block page_title %}{% trans %}Readers{% endtrans %}{% endblock %}
 {% block content %}
 
-
-
 <h2 class="content-subhead">{% trans %}Add a reader{% endtrans %}</h2>
-{% if form_new.errors %}
-  <ul class="errors">
-    {% for field_name, field_errors in form_new.errors|dictsort if field_errors %}
-      {% for error in field_errors %}
-        <li>{{ form_new[field_name].label }}: {{ error }}</li>
-      {% endfor %}
-    {% endfor %}
-  </ul>
-{% endif %}
+
 <form class="pure-form pure-form-aligned" action="{{ url_for('create_user') }}" method="POST">
   <fieldset>
     {{ form_new.hidden_tag() }}
-    <div class="pure-control-group">
-      {{ form_new.login.label }}
-      {{ form_new.login }}
-    </div>
-      
-    <div class="pure-control-group">
-      {{ form_new.password.label }}
-      {{ form_new.password }}
-    </div>
+    {{ forms.pure_aligned_field(form_new.login) }}
+    {{ forms.pure_aligned_field(form_new.password) }}
 
     <div class="pure-controls">
       <input type="submit" class="pure-button pure-button-primary" value="{% trans %}Add{% endtrans %}"/>

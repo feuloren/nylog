@@ -275,3 +275,13 @@
 #menu li a:hover .close {
     display: block;
 }
+
+.form-error {
+    margin: 0px 0px 0px 10em;
+}
+
+ul.error {
+    list-style: none;
+    color: rgba(255, 64, 64, 1);
+    padding-left: 1em;
+}
