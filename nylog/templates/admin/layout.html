@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% trans %}NYLog Admin{% endtrans %} {% block page_title %}{% endblock %}</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/admin.css') }}"/>
+  </head>
+  <body>
+    <div id="layout">
+      <div id="menu">
+        <div class="pure-menu pure-menu-open">
+          <a href="{{ url_for('index') }}"
+          class="pure-menu-heading">{% trans %}&lt; Log{% endtrans %}</a>
+          <ul>
+            <li><a href="{{ url_for('admin_home') }}">{% trans %}Home{% endtrans %}</a></li>
+            <li><a href="{{ url_for('admin_users') }}">{% trans %}Readers{% endtrans %}</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="main">
+        <div id="messages">
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              <ul class="flash-messages">
+                {% for message in messages %}
+                  <li>{{ message }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          {% endwith %}
+        </div>
+
+        <div id="content">
+          {% block content %}{% endblock %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
