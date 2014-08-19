@@ -11,6 +11,9 @@
       {% block navigation %}
         {% if current_user.is_authenticated() %}
           <li><a href="{{ url_for('logout') }}">{% trans %}Logout{% endtrans %}</a></li>
+          {% if current_user.is_admin %}          
+            <li><a href="{{ url_for('admin_home') }}">Admin</a></li>
+          {% endif %}
         {% else %}
           <li><a href="{{ url_for('ask_login') }}">{% trans  %}Login{% endtrans %}</a></li>
         {% endif %}
