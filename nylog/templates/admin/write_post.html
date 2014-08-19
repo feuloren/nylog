@@ -1,12 +1,15 @@
 {% extends "admin/layout.html" %}
 {% import "admin/forms.html" as forms %}
 {% block content %}
-<form action="{{ url_for('new_post') }}" method="POST">
+<form action="{{ url_for('new_post') }}" method="POST" class="pure-form">
 {{ form.hidden_tag() }}
-<div>{{ forms.basic_field(form.title) }}</div>
-<div>{{ forms.basic_field(form.covered_period) }}
-  {{ forms.basic_field(form.week) }}</div>
-<div>{{ forms.basic_field(form.content) }}</div>
-<input type="submit" value="{% trans %}Publish{% endtrans %}"/>
+{{ forms.basic_field(form.title, class="pure-input-2-3") }}
+<div>
+  {{ forms.basic_field(form.covered_period) }}
+  {{ forms.basic_field(form.week) }}
+</div>
+<div>{{ forms.basic_field(form.content, class="pure-input-1", rows=20) }}</div>
+<input type="submit" value="{% trans %}Publish{% endtrans %}"
+       class="pure-button pure-button-primary"/>
 </form>
 {% endblock %}

@@ -7,7 +7,7 @@
     </ul>
   {% endif %}
   {{ field.label }}
-  {{ field }}
+  {{ field(**kwargs) }}
 {%- endmacro %}
 
 {% macro pure_aligned_field(field) -%}
@@ -22,6 +22,6 @@
   {% endif %}
   <div class="pure-control-group">
     {{ field.label }}
-    {{ field }}
+    {{ field(**kwargs) }}
   </div>
 {%- endmacro %}
