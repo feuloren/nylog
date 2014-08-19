@@ -48,7 +48,12 @@ class NYLogUser:
 
     def check_password(self, password):
         # hash stored in the database = scrypt hash (88 chars) + salt (88 chars)
-        return check_password_hash(password, self.user.password[:88].encode('utf-8'), self.user.password[88:])
+        hash = self.user.password[:88]
+        salt = self.user.password[88:]
+        if isinstance(hash, str):
+            hash = hash.encode('utf-8')
+        return check_password_hash(password, hash, salt,
+                                   N=16384, r=8, p=1, buflen=64)
 
 def admin_required(f):
     "Decorate a view with this function to restrict the access to the log admin"

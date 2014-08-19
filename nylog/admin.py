@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for
 from .app import app
-from .models import db, User, Post, Comment
+from .models import db, User, Post, Comment, IntegrityError
 from .auth import admin_required
 from flask_scrypt import generate_password_hash, generate_random_salt
 from wtforms.validators import DataRequired
@@ -22,29 +22,37 @@ def admin_users(form = None):
     return render_template('admin/users.html', users = users, form_new = form,
                            delete_user = FormDeleteUser)
 
-@app.route('/admin/create_user', methods = ['POST'])
+@app.route('/admin/user/create', methods = ['POST'])
 @admin_required
 def create_user():
     form = NewUserForm()
     if form.validate():
-        new_user = User()
-        new_user.login = form.login.data
-
-        # generate a strong cryptographic hash from the password
-        salt = generate_random_salt(byte_size = 64)
-        phash = generate_password_hash(form.password.data, salt,
-                                       N=16384, r=8, p=1, buflen=64)
-
+        user = new_user(form.login.data, form.password.data)
         # and save it all
-        db.session.add(new_user)
-        db.session.commit()
+        db.session.add(user)
+        try:
+            db.session.commit()
+            flash(_('Reader %s added !') % user.login)
+        except IntegrityError:
+            flash(_("Login '%s' already taken") % user.login, 'error')
 
-        flash(_('Reader %s added !') % new_user.login)
         return redirect(url_for('admin_users'))
     else:
         return admin_users(form)
 
-@app.route('/admin/delete_user', methods = ['POST'])
+def new_user(login, password):
+    user = User()
+    user.login = login
+
+    # generate a strong cryptographic hash from the password
+    salt = generate_random_salt(byte_size = 64)
+    phash = generate_password_hash(password, salt,
+                                   N=16384, r=8, p=1, buflen=64)
+    user.password = phash + salt
+
+    return user
+
+@app.route('/admin/user/delete', methods = ['POST'])
 @admin_required
 def delete_user():
     form = DeleteForm()
