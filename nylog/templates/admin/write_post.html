@@ -1,0 +1,12 @@
+{% extends "admin/layout.html" %}
+{% import "admin/forms.html" as forms %}
+{% block content %}
+<form action="{{ url_for('new_post') }}" method="POST">
+{{ form.hidden_tag() }}
+<div>{{ forms.basic_field(form.title) }}</div>
+<div>{{ forms.basic_field(form.covered_period) }}
+  {{ forms.basic_field(form.week) }}</div>
+<div>{{ forms.basic_field(form.content) }}</div>
+<input type="submit" value="{% trans %}Publish{% endtrans %}"/>
+</form>
+{% endblock %}

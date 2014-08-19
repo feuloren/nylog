@@ -4,9 +4,11 @@ from .models import db, User, Post, Comment, IntegrityError
 from .auth import admin_required
 from flask_scrypt import generate_password_hash, generate_random_salt
 from wtforms.validators import DataRequired
-from wtforms import StringField, HiddenField, PasswordField
+from wtforms import (StringField, HiddenField, PasswordField, BooleanField,
+                     TextAreaField, DateField)
 from flask_wtf import Form
 from gettext import gettext as _
+from datetime import date as dtdate
 
 @app.route('/admin/')
 @admin_required
@@ -78,3 +80,52 @@ def FormDeleteUser(user):
     form = DeleteForm()
     form.id.data = user.id
     return form
+
+@app.route('/admin/post/write')
+@admin_required
+def write_post():
+    return render_template('admin/write_post.html', form = NewPostForm())
+
+@app.route('/admin/post/new', methods = ['POST'])
+@admin_required
+def new_post():
+    form = NewPostForm()
+    if form.validate():
+        post = Post()
+        post.title = form.title.data
+        post.slug = form.get_slug()
+        post.content = form.content.data
+        post.covered_period = form.covered_period.data
+        post.covers_week = form.week.data
+        
+        db.session.add(post)
+        db.session.commit()
+
+        flash(_('Entry published !'))
+        return redirect(url_for('write_post'))
+    return render_template('admin/write_post.html', form = form)
+
+class NewPostForm(Form):
+    title = StringField(_('Title'), validators = [DataRequired()])
+    content = TextAreaField(_('Content'), validators = [DataRequired()])
+    covered_period = DateField(_('Date'), validators = [DataRequired()],
+                               default = lambda : dtdate.today())
+    week = BooleanField(_('Covers whole week'))
+
+    def get_slug(self):
+        return slugify(self.title.data)
+
+# from http://flask.pocoo.org/snippets/5/
+import re
+from unicodedata import normalize
+
+_punct_re = re.compile(r'[\t !"#$%&\'()*\-/<=>?@\[\\\]^_`{|},.]+')
+
+def slugify(text, delim='-'):
+    """Generates an slightly worse ASCII-only slug."""
+    result = []
+    for word in _punct_re.split(text.lower()):
+        word = normalize('NFKD', word).encode('ascii', 'ignore')
+        if word:
+            result.append(str(word))
+    return delim.join(result)

@@ -2,6 +2,8 @@ from nylog import app
 
 from flask.ext.sqlalchemy import SQLAlchemy
 from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.exc import IntegrityError
+from datetime import datetime as dt
 
 db = SQLAlchemy(app)
 
@@ -28,9 +30,10 @@ class Post(db.Model):
     title = db.Column(db.String(30), nullable = False)
     slug = db.Column(db.String(30))
     content = db.Column(db.Text, nullable = False)
-    created_at = db.Column(db.DateTime, nullable = False)
-    covered_period = db.Column(db.Enum('day', 'week'))
-    period_number = db.Column(db.Integer)
+    created_at = db.Column(db.DateTime, nullable = False,
+                           default = dt.utcnow())
+    covered_period = db.Column(db.Date)
+    covers_week = db.Column(db.Boolean)
 
     categories = db.relationship('Post',
                                  secondary = posts_categories,
