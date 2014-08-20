@@ -286,3 +286,7 @@ ul.error {
     color: rgba(255, 64, 64, 1);
     padding-left: 1em;
 }
+
+.list-unstyled {
+    list-style: none;
+}

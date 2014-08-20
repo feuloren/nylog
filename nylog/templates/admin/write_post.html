@@ -9,6 +9,7 @@
   {{ forms.basic_field(form.week) }}
 </div>
 <div>{{ forms.basic_field(form.content, class="pure-input-1", rows=20) }}</div>
+<div>{{ forms.basic_field(form.categories, class="list-unstyled") }}</div>
 <input type="submit" value="{% trans %}Publish{% endtrans %}"
        class="pure-button pure-button-primary"/>
 </form>

@@ -35,7 +35,7 @@ class Post(db.Model):
     covered_period = db.Column(db.Date)
     covers_week = db.Column(db.Boolean)
 
-    categories = db.relationship('Post',
+    categories = db.relationship('Category',
                                  secondary = posts_categories,
                                  backref = db.backref('posts',
                                                       lazy = 'dynamic'))
@@ -60,6 +60,7 @@ class Category(db.Model):
 
     __tablename__ = 'category'
     name = db.Column(db.String(10), primary_key = True)
+    public = db.Column(db.Boolean, nullable = False)
 
     allowed_users = db.relationship('User',
                                     secondary = users_categories,

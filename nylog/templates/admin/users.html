@@ -37,10 +37,7 @@
         and avoid potential security issues
         #}
         {% with form = delete_user(user) %}
-          <form action="{{ url_for('delete_user') }}" method="POST">
-            {{ form.id }}{{ form.csrf_token }}
-            <button type="submit" class="pure-button">X</button>
-          </form>
+          {{ forms.pure_action(form, 'delete_user', 'X') }}
         {% endwith %}
       </td>
     </tr>

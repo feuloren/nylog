@@ -25,3 +25,12 @@
     {{ field(**kwargs) }}
   </div>
 {%- endmacro %}
+
+{% macro pure_action(form, dest, text) -%}
+  <form action="{{ url_for(dest) }}" method="POST">
+    {% for field in form %}
+      {{ field }}
+    {% endfor %}
+    <button type="submit" class="pure-button">X</button>
+  </form>
+{%- endmacro %}
