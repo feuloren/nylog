@@ -1,7 +1,7 @@
 {% extends "log_layout.html" %}
 {% block page_title %}{% trans %}NYC Log{% endtrans %} - {{ post.title }}{% endblock %}
 {% block navigation %}
-<li><a href="{{ url_for('index') }}"{% trans %}>&lt Back{% endtrans %}</a></li>
+<li><a href="{{ url_for('index') }}">{% trans %}&lt; Back{% endtrans %}</a></li>
 {{ super() }}
 {% endblock %}
 {% block title %}{{ post.title }} <small>{{ post.created_at | format_date_local }}</small>{% endblock %}

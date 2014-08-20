@@ -1,12 +1,12 @@
 {% extends "log_layout.html" %}
 {% block page_title %}{% trans %}NYC Log - Admin only{% endtrans %}{% endblock %}
 {% block navigation %}
-<li><a href="{{ url_for('index') }}">&lt; Home</a></li>
+<li><a href="{{ url_for('index') }}">{% trans %}&lt; Home{% endtrans %}</a></li>
 {% endblock %}
 {% block title %}{% trans %}Admin only{% endtrans %}{% endblock %}
 {% block content %}
 <p>
-Sorry, only the admin can access this part of the log.
+{% trans %}Sorry, only the admin can access this part of the log.{% endtrans %}
 </p>
 {% endblock %}
 

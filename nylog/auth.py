@@ -4,7 +4,7 @@ from flask_wtf import Form
 from wtforms import StringField, PasswordField, HiddenField
 from wtforms.validators import DataRequired
 from flask_scrypt import check_password_hash
-from gettext import gettext as _
+from flask.ext.babel import gettext as _, lazy_gettext as _l
 from functools import wraps
 
 from .app import app
@@ -107,6 +107,6 @@ def logout():
     return redirect(url_for('index'))
 
 class LoginForm(Form):
-    login = StringField(_('Login'), validators=[DataRequired()])
-    password = PasswordField(_('Password'))
+    login = StringField(_l('Login'), validators=[DataRequired()])
+    password = PasswordField(_l('Password'))
     next = HiddenField()

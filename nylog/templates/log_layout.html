@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>{% block page_title %}{% endblock %}</title>
+    <title>{% block page_title %}NYC Log{% endblock %}</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename = 'css/own.css') }}"/>
   </head>
@@ -10,12 +10,12 @@
       <ul>
       {% block navigation %}
         {% if current_user.is_authenticated() %}
-          <li><a href="{{ url_for('logout') }}">{% trans %}Logout{% endtrans %}</a></li>
+          <li><a href="{{ url_for('logout') }}">{% trans %}Log out{% endtrans %}</a></li>
           {% if current_user.is_admin %}          
-            <li><a href="{{ url_for('admin_home') }}">Admin</a></li>
+            <li><a href="{{ url_for('admin_home') }}">{% trans %}Admin{% endtrans %}</a></li>
           {% endif %}
         {% else %}
-          <li><a href="{{ url_for('ask_login') }}">{% trans  %}Login{% endtrans %}</a></li>
+          <li><a href="{{ url_for('ask_login') }}">{% trans  %}Log in{% endtrans %}</a></li>
         {% endif %}
       {% endblock %}
       </ul>

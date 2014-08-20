@@ -1,5 +1,5 @@
-from flask import Flask, render_template
-from flask.ext.babel import Babel
+from flask import Flask, render_template, request
+from flask.ext.babel import Babel, format_datetime
 import arrow
 
 app = Flask('nylog')
@@ -15,6 +15,10 @@ if not(app.config.from_envvar('NYLOG_CONFIG', True)):
 
 babel = Babel(app)
 
+@babel.localeselector
+def get_locale():
+    return request.accept_languages.best_match(['fr', 'en'])
+
 @app.errorhandler(404)
 def handler_page_not_found(e):
     return render_template("404.html"), 404
@@ -23,13 +27,13 @@ def handler_page_not_found(e):
 def format_date_local(date):
     "Human friendly datetime display"
     adate = arrow.get(date)
-    locale = 'en_us'
+    locale = get_locale()
 
     diff = arrow.utcnow() - adate    
     if diff.days <= 2:
         return adate.humanize(locale = locale)
     else:
-        return adate.format('DD MMMM YYYY, HH:mm', locale = locale)
+        return format_datetime(date)
 
 # from http://flask.pocoo.org/snippets/28/
 import re

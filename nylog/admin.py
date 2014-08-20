@@ -7,7 +7,7 @@ from wtforms.validators import DataRequired
 from wtforms import (StringField, HiddenField, PasswordField, BooleanField,
                      TextAreaField, DateField)
 from flask_wtf import Form
-from gettext import gettext as _
+from flask.ext.babel import gettext as _, lazy_gettext as _l
 from datetime import date as dtdate
 
 @app.route('/admin/')
@@ -69,8 +69,8 @@ def delete_user():
     return redirect(url_for('admin_users'))
 
 class NewUserForm(Form):
-    login = StringField(_('Login'), validators = [DataRequired()])
-    password = PasswordField(_('Password'), validators = [DataRequired()])
+    login = StringField(_l('Login'), validators = [DataRequired()])
+    password = PasswordField(_l('Password'), validators = [DataRequired()])
 
 class DeleteForm(Form):
     id = HiddenField(validators = [DataRequired()])
@@ -106,11 +106,11 @@ def new_post():
     return render_template('admin/write_post.html', form = form)
 
 class NewPostForm(Form):
-    title = StringField(_('Title'), validators = [DataRequired()])
-    content = TextAreaField(_('Content'), validators = [DataRequired()])
-    covered_period = DateField(_('Date'), validators = [DataRequired()],
+    title = StringField(_l('Title'), validators = [DataRequired()])
+    content = TextAreaField(_l('Content'), validators = [DataRequired()])
+    covered_period = DateField(_l('Date'), validators = [DataRequired()],
                                default = lambda : dtdate.today())
-    week = BooleanField(_('Covers whole week'))
+    week = BooleanField(_l('Covers whole week'))
 
     def get_slug(self):
         return slugify(self.title.data)
