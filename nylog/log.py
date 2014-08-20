@@ -21,6 +21,6 @@ def old_posts():
 
 
 @app.route('/post/<int:id>/<slug>')
-def show_post(id,  slug):
+def show_post(id, slug):
     post = Post.query.get_or_404(id)
     return render_template("post.html", post = post)

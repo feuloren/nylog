@@ -161,8 +161,8 @@ def slugify(text, delim='-'):
     for word in _punct_re.split(text.lower()):
         word = normalize('NFKD', word).encode('ascii', 'ignore')
         if word:
-            result.append(str(word))
-            return delim.join(result)
+            result.append(word.decode('utf-8'))
+    return delim.join(result)
 
 class NewPostForm(Form):
     title = StringField(_l('Title'), validators = [DataRequired()])
