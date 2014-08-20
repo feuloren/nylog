@@ -1,0 +1,53 @@
+{% extends "admin/layout.html" %}
+{% import "admin/forms.html" as forms %}
+{% block page_title %}{% trans %}Categories{% endtrans %}{% endblock %}
+{% block content %}
+
+<h2 class="content-subhead">{% trans %}Add a category{% endtrans %}</h2>
+
+<form class="pure-form pure-form-aligned" action="{{ url_for('new_category') }}" method="POST">
+  <fieldset>
+    {{ form.hidden_tag() }}
+    {{ forms.pure_aligned_field(form.name) }}
+    {{ forms.pure_aligned_field(form.public) }}
+    {{ forms.pure_aligned_field(form.users, class="list-unstyled") }}
+
+    <div class="pure-controls">
+      <input type="submit" class="pure-button pure-button-primary" value="{% trans %}Add{% endtrans %}"/>
+    </div>
+  </fieldset>
+</form>
+
+<h2 class="content-subhead">{% trans %}Categories{% endtrans %}</h2>
+<table class="pure-table pure-table-bordered pure-table-striped">
+  <thead>
+    <tr>
+      <th>{% trans %}Name{% endtrans %}</th>
+      <th>{% trans %}Readers{% endtrans %}</th>
+      <th>{% trans %}Delete{% endtrans %}</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for category in categories %}
+    <tr>
+      <td>{{ category.name }}</td>
+      <td>
+        {% if category.public %}
+          <b>{% trans %}Public{% endtrans %}</b>
+        {% else %}
+          {% for user in category.allowed_users %}{{ user.login }} {% else %}<b>{% trans %}Private{% endtrans %}</b>{% endfor %}
+        {% endif %}</td>
+      <td>
+        {# The 'delete' button is actually a POST form
+        thanks to that we can benefit from the csrf protection
+        and avoid potential security issues
+        #}
+        {% with form = delete_category(category) %}
+          {{ forms.pure_action(form, 'delete_category', 'X') }}
+        {% endwith %}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</ul>
+{% endblock %}
