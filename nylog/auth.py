@@ -94,7 +94,7 @@ def login():
             flash(_("This login is unknown."))
         elif user.check_password(form.password.data):
             login_user(user, remember = True)
-            flash(_('You are now connected as %s') % user.login)
+            flash(_('You are now connected as %(login)s', login = user.login))
             return redirect(form.next.data or url_for('index'))
         else:
             flash(_("Login and password didn't match."))

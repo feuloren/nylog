@@ -34,9 +34,9 @@ def create_user():
         db.session.add(user)
         try:
             db.session.commit()
-            flash(_('Reader %s added !') % user.login)
+            flash(_('Reader %(login)s added !', login = user.login))
         except IntegrityError:
-            flash(_("Login '%s' already taken") % user.login, 'error')
+            flash(_("Login '%(login)s' already taken", login = user.login), 'error')
 
         return redirect(url_for('admin_users'))
     else:

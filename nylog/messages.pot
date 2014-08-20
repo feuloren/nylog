@@ -19,12 +19,12 @@ msgstr ""
 
 #: admin.py:37
 #, python-format
-msgid "Reader %s added !"
+msgid "Reader %(login)s added !"
 msgstr ""
 
 #: admin.py:39
 #, python-format
-msgid "Login '%s' already taken"
+msgid "Login '%s(login)' already taken"
 msgstr ""
 
 #: admin.py:66
@@ -69,7 +69,7 @@ msgstr ""
 
 #: auth.py:97
 #, python-format
-msgid "You are now connected as %s"
+msgid "You are now connected as %(login)s"
 msgstr ""
 
 #: auth.py:100

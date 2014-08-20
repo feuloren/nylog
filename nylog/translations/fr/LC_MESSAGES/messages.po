@@ -21,13 +21,13 @@ msgstr ""
 
 #: admin.py:37
 #, python-format
-msgid "Reader %s added !"
-msgstr "Lecteur %s ajouté !"
+msgid "Reader %(login)s added !"
+msgstr "Lecteur %(login)s ajouté !"
 
 #: admin.py:39
 #, python-format
-msgid "Login '%s' already taken"
-msgstr "Identifiant '%s' déjà utilisé"
+msgid "Login '%(login)s' already taken"
+msgstr "Identifiant '%(login)s' déjà utilisé"
 
 #: admin.py:66
 msgid "Reader deleted !"
@@ -71,8 +71,8 @@ msgstr "Cet identifiant est inconnu."
 
 #: auth.py:97
 #, python-format
-msgid "You are now connected as %s"
-msgstr "Vous êtes connecté en tant que %s"
+msgid "You are now connected as %(login)s"
+msgstr "Vous êtes connecté en tant que %(login)s"
 
 #: auth.py:100
 msgid "Login and password didn't match."
