@@ -36,7 +36,9 @@ class DeleteForm(Form):
         form = self_cls()
         if form.validate_on_submit():
             delid = pk.type.python_type(form.id.data) # Convert from string to Column type
-            if cls.query.filter(pk == delid).delete() == 1:
+            obj = cls.query.get(delid)
+            if not(obj is None):
+                db.session.delete(obj)
                 return True
 
         return False
