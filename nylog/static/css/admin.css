@@ -290,3 +290,24 @@ ul.error {
 .list-unstyled {
     list-style: none;
 }
+
+.hidden {
+    display: none;
+}
+
+.upload-hover {
+    background-color: rgba(218, 250, 255, 1);
+}
+
+.full-width {
+    width: 100%
+}
+
+#img-crop {
+    background-color: black;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 1010;
+    padding: 5px;
+}

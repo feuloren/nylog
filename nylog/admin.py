@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, abort, jsonify
 from .app import app
 from .models import db, User, Post, Comment, Category, IntegrityError
 from sqlalchemy.orm import class_mapper
@@ -9,8 +9,13 @@ from wtforms import (StringField, HiddenField, PasswordField, BooleanField,
                      TextAreaField, DateField, SelectMultipleField)
 from wtforms.widgets import ListWidget, CheckboxInput
 from flask_wtf import Form
+from flask_wtf.file import FileField, FileAllowed, FileRequired
+from werkzeug import secure_filename
 from flask.ext.babel import gettext as _, lazy_gettext as _l
 from datetime import date as dtdate
+from uuid import uuid4 as random_uuid
+from PIL import Image
+import os.path
 
 def class_get_pk(cls):
     "Get the primary key column for cls"
@@ -183,12 +188,12 @@ class NewPostForm(Form):
 @app.route('/admin/post/write')
 @admin_required
 def write_post():
-    return render_template('admin/write_post.html', form = NewPostForm())
+    return render_template('admin/write_post.html', form = NewPostForm(prefix='post-'))
 
 @app.route('/admin/post/new', methods = ['POST'])
 @admin_required
 def new_post():
-    form = NewPostForm()
+    form = NewPostForm(prefix='post-')
     if form.validate():
         post = Post()
         post.title = form.title.data
@@ -254,3 +259,56 @@ def delete_category():
         flash(_('Category deleted !'))
     return redirect(url_for('categories'))
 
+
+# Images
+class ImageUploadForm(Form):
+    image = FileField('image', validators = [FileRequired(),
+                                             FileAllowed(('jpg', 'jpeg', 'png', 'gif'))])
+    name = StringField('name')
+
+@app.route('/admin/image/upload', methods = ['POST'])
+@admin_required
+def upload_image():
+    form = ImageUploadForm()
+    if form.validate():
+        client_name, ext = os.path.splitext(form.image.data.filename)
+        if not(ext):
+            abort(400)
+
+        dest_name = secure_filename(form.name.data)
+        if not(dest_name):
+            dest_name = str(random_uuid())
+        dest_path = os.path.join('images', 'original', dest_name + ext)
+
+        # TODO : handle name conflicts
+        location = os.path.join(app.config['UPLOAD_FOLDER'], dest_path)
+        form.image.data.save(location)
+        # resize the image
+        resized_path = resize_image(location, app.config['NYLOG_IMAGES_LARGE_WIDTH'])
+
+        return jsonify({'original' : dest_path,
+                        'resized' : resized_path})
+    else:
+        abort(400)
+
+def crop_image(image):
+    return ""
+
+def resize_image(location, max_width):
+    """Downscale an image if its width is greater than `max_width`
+    Return the path of the new image (TODO move in outer function)
+    """
+    try:
+        img = Image.open(os.path.join(app.config['UPLOAD_FOLDER'], location))
+    except FileNotFoundError as e:
+        return None
+
+    width, height = img.size
+    if width > max_width:
+        ratio = height / width
+        out = img.resize((max_width, int(max_width * ratio)))
+        dest_path = os.path.join('images', 'large', os.path.basename(location))
+        out.save(os.path.join(app.config['UPLOAD_FOLDER'], dest_path))
+        return dest_path
+    else:
+        return None

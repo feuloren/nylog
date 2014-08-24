@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css"/>
     <link rel="stylesheet" href="{{ url_for('static', filename = 'css/admin.css') }}"/>
+    {% block headers %}{% endblock %}
   </head>
   <body>
     <div id="layout">
@@ -39,5 +40,7 @@
         </div>
       </div>
     </div>
+
+    {% block scripts %}{% endblock %}
   </body>
 </html>

@@ -9,8 +9,36 @@
   {{ forms.basic_field(form.week) }}
 </div>
 <div>{{ forms.basic_field(form.content, class="pure-input-1", rows=20) }}</div>
+<div>
+  <p id="upload"><label>{% trans %}Add image{% endtrans %}</label><input type="file"></p>
+</div>
 <div>{{ forms.basic_field(form.categories, class="list-unstyled") }}</div>
 <input type="submit" value="{% trans %}Publish{% endtrans %}"
        class="pure-button pure-button-primary"/>
 </form>
+
+<div>
+  <p id="filereader">File API & FileReader API not supported</p>
+  <p id="formdata">XHR2's FormData is not supported</p>
+  <p id="progress">XHR2's upload progress isn't supported</p>
+  <p>Upload progress: <progress id="uploadprogress" min="0" max="100" value="0">0</progress></p>
+</div>
+
+<div id="img-crop" class="hidden">
+  
+</div>
 {% endblock %}
+
+{% block headers %}
+  <link rel="stylesheet" href="{{ static('css/jquery.Jcrop.min.css') }}"/>
+{% endblock %}
+{% block scripts %}
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/color/jquery.color-2.1.2.min.js"></script>
+  <script type="text/javascript" src="{{ static('js/jquery.Jcrop.min.js') }}"></script>
+  <script type="text/javascript">
+    var csrf_token = "{{ csrf_token() }}"
+  </script>
+  <script type="text/javascript" src="{{ static('js/upload_image.js') }}"></script>
+{% endblock %}
+

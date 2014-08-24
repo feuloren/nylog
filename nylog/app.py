@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for
 from flask.ext.babel import Babel, format_datetime
+from flask_wtf import CsrfProtect
 import arrow
 
 app = Flask('nylog')
@@ -13,6 +14,7 @@ if not(app.config.from_envvar('NYLOG_CONFIG', True)):
     print("Warning : no config loaded, set the environment variable NYLOG_CONFIG to point the file storing the config",
           file = stderr)
 
+CsrfProtect(app)
 babel = Babel(app)
 
 @babel.localeselector
@@ -34,6 +36,10 @@ def format_date_local(date):
         return adate.humanize(locale = locale)
     else:
         return format_datetime(date)
+
+@app.template_global()
+def static(filename):
+    return url_for('static', filename = filename)
 
 # from http://flask.pocoo.org/snippets/28/
 import re
