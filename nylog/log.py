@@ -17,7 +17,7 @@ def index():
         # They can only see public posts
         query = Post.query.join(Post.categories).filter(Category.public == True)
 
-    posts = query.group_by(Post.id).order_by(Post.covered_period).limit(5)
+    posts = query.group_by(Post.id).order_by(Post.covered_period.desc()).limit(5)
     return render_template("home.html", posts = posts)
 
 
