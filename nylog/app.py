@@ -43,6 +43,10 @@ def format_date_local(date):
     else:
         return format_datetime(date)
 
+@app.template_global()
+def current_url():
+    return request.path
+
 # from http://flask.pocoo.org/snippets/28/
 import re
 from jinja2 import evalcontextfilter, Markup, escape

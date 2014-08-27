@@ -7,6 +7,30 @@
 {% block title %}{{ post.title }} <small>{{ post.created_at | format_date_local }}</small>{% endblock %}
 {% block content %}
 {{ post.content | paragraphs }}
+
+{% if display_comments %}
+<h2>{% trans %}Comments{% endtrans %}</h2>
+
+<form action="{{ url_for('save_comment') }}" method="POST">
+{{ comment_form.hidden_tag() }}
+<div>{{ comment_form.comment.label }}</div>
+<div>{{ comment_form.comment(rows = 5, class = 'article-width') }}</div>
+<input type="submit" value="{% trans %}Comment{% endtrans %}" />
+</form>
+
+{% for comment in post.comments %}
+<div class="comment">
+<div class="comment-header">{% trans %}By{% endtrans %} {{ comment.author.login }}, {{ comment.created_at | format_date_local }}</div>
+{{ comment.content | paragraphs }}
+</div>
+{% else %}
+<p>{% trans %}No comments yet{% endtrans %}</p>
+{% endfor %}
+
+{% else %}
+  <p><a href="{{ url_for('ask_login', next=current_url()) }}" class="dark-link">{% trans %}Log in to leave a comment{% endtrans %}</a></p>
+{% endif %}
+
 {% endblock %}
 
 {% block scripts %}

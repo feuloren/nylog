@@ -33,7 +33,7 @@ h1 small {
     padding: 15px;
 }
 
-#navigation a, #navigation a:visited {
+#navigation a, #navigation a:visited, .dark-link {
     font-size: 18px;
     font-weight: 600;
     text-decoration: none;
@@ -80,8 +80,18 @@ img.float-left, img.float-right {
     padding: 5px;
 }
 
-#navigation li:hover {
+#navigation li:hover, .dark-link:hover {
     background-color: rgb(197, 197, 197);
+}
+
+#content .comment {
+    font-size: 20px;
+}
+
+.comment-header {
+    color: rgb(110, 110, 110);
+    margin-top: 1em;
+    margin-bottom: -1em;
 }
 
 @media screen and (max-device-width: 480px) {
