@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template, request, url_for, send_from_directory
 from flask.ext.babel import Babel, format_datetime
 from flask_wtf import CsrfProtect
 import arrow
@@ -52,6 +52,11 @@ def static(filename):
 @app.template_global()
 def current_url():
     return request.path
+
+@app.route('/upload/<path:filename>')
+def serve_upload(filename):
+    "Should not be used in production, let the reverse proxy serve static files"
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 # from http://flask.pocoo.org/snippets/28/
 import re

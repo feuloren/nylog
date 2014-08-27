@@ -76,7 +76,7 @@ function readfiles(files) {
                     // the image may have been resized
                     var path = result.resized ? result.resized : result.original;
                     
-                    var line = '\n:image "' + path + '"\n'
+                    var line = '\n:image ' + path + '\n'
                     document.getElementById('post-content').value += line;
                 }
             }

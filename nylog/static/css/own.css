@@ -60,7 +60,7 @@ h1 small {
 }
 
 img.float-left, img.float-right {
-    margin-top: 22px;
+    margin-top: 0px;
     margin-bottom: 22px;
     margin-left: 15px;
     margin-right: 15px;
@@ -92,6 +92,10 @@ img.float-left, img.float-right {
     color: rgb(110, 110, 110);
     margin-top: 1em;
     margin-bottom: -1em;
+}
+
+#post-comments {
+    clear: both;
 }
 
 @media screen and (max-device-width: 480px) {

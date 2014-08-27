@@ -6,8 +6,9 @@
 {% endblock %}
 {% block title %}{{ post.title }} <small>{{ post.created_at | format_date_local }}</small>{% endblock %}
 {% block content %}
-{{ post.content | paragraphs }}
+{{ parse_post(post.content) }}
 
+<div id="post-comments">
 {% if display_comments %}
 <h2>{% trans %}Comments{% endtrans %}</h2>
 
@@ -30,6 +31,7 @@
 {% else %}
   <p><a href="{{ url_for('ask_login', next=current_url()) }}" class="dark-link">{% trans %}Log in to leave a comment{% endtrans %}</a></p>
 {% endif %}
+</div>
 
 {% endblock %}
 

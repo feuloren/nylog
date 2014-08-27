@@ -9,6 +9,8 @@ from wtforms.validators import DataRequired
 from flask.ext.babel import gettext as _, lazy_gettext as _l
 from flask_wtf import Form
 
+from .parsers import *
+
 def posts_for_current_user():
     if not(current_user.is_anonymous()) and current_user.is_authenticated():
         if current_user.is_admin:
@@ -25,7 +27,8 @@ def posts_for_current_user():
 def index():
     query = posts_for_current_user()
     posts = query.group_by(Post.id).order_by(Post.covered_period.desc()).limit(5)
-    return render_template("home.html", posts = posts)
+    return render_template("home.html", posts = posts,
+                           parse_post = summary_parser())
 
 
 @app.route('/posts')
@@ -46,7 +49,8 @@ def show_post(id, slug, comment_form = None):
         comment_form.post.data = id
 
     return render_template("post.html", post = post, comment_form = comment_form,
-                           display_comments = current_user.is_authenticated())
+                           display_comments = current_user.is_authenticated(),
+                           parse_post = full_post_parser())
 
 @app.post('/comment/add')
 def save_comment():
