@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-08-21 00:26+0200\n"
-"PO-Revision-Date: 2014-08-21 00:30+0200\n"
+"POT-Creation-Date: 2014-08-27 00:08-0400\n"
+"PO-Revision-Date: 2014-08-27 00:10-0400\n"
 "Last-Translator: Florent Thévenet <florent@fthevenet.fr>\n"
 "Language-Team: français <>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -19,75 +19,75 @@ msgstr ""
 "Generated-By: Babel 1.3\n"
 "X-Generator: Gtranslator 2.91.6\n"
 
-#: admin.py:99 auth.py:110 templates/admin/users.html:25
+#: admin.py:101 auth.py:110 templates/admin/users.html:25
 msgid "Login"
 msgstr "Identifiant"
 
-#: admin.py:100 auth.py:111
+#: admin.py:102 auth.py:111
 msgid "Password"
 msgstr "Mot de passe"
 
-#: admin.py:133
+#: admin.py:135
 #, python-format
 msgid "Reader %(login)s added !"
 msgstr "Lecteur %(login)s ajouté !"
 
-#: admin.py:135
+#: admin.py:137
 #, python-format
 msgid "Login '%(login)s' already taken"
 msgstr "Identifiant '%(login)s' déjà utilisé"
 
-#: admin.py:146
+#: admin.py:148
 msgid "Reader deleted !"
 msgstr "Lecteur supprimé"
 
-#: admin.py:168
+#: admin.py:170
 msgid "Title"
 msgstr "Titre"
 
-#: admin.py:169
+#: admin.py:171
 msgid "Content"
 msgstr "Contenu"
 
-#: admin.py:170
+#: admin.py:172
 msgid "Date"
 msgstr "Date"
 
-#: admin.py:172
+#: admin.py:174
 msgid "Covers whole week"
 msgstr "Couvre toute la semaine"
 
-#: admin.py:173 templates/admin/categories.html:3
+#: admin.py:175 templates/admin/categories.html:3
 #: templates/admin/categories.html:21 templates/admin/layout.html:19
 msgid "Categories"
 msgstr "Catégories"
 
-#: admin.py:202
+#: admin.py:204
 msgid "Entry published !"
 msgstr "Note publiée"
 
-#: admin.py:209 templates/admin/categories.html:25
+#: admin.py:211 templates/admin/categories.html:25
 msgid "Name"
 msgstr "Nom"
 
-#: admin.py:210 templates/admin/categories.html:36
+#: admin.py:212 templates/admin/categories.html:36
 msgid "Public"
 msgstr "Public"
 
-#: admin.py:211
+#: admin.py:213
 msgid "Allowed readers"
 msgstr "Lecteurs autorisés"
 
-#: admin.py:240
+#: admin.py:242
 msgid "Category added !"
 msgstr "Catégorie ajoutée !"
 
-#: admin.py:242
+#: admin.py:244
 #, python-format
 msgid "Category '%(category)s' already exists."
 msgstr "La catégorie '%(category)s' existe déjà."
 
-#: admin.py:252
+#: admin.py:254
 msgid "Category deleted !"
 msgstr "Catégorie supprimée"
 
@@ -107,6 +107,14 @@ msgstr "Vous êtes connecté en tant que %(login)s"
 #: auth.py:100
 msgid "Login and password didn't match."
 msgstr "L'identifiant et le mot de passe ne correspondent pas."
+
+#: log.py:69
+msgid "Comment saved"
+msgstr "Commentaire enregistré"
+
+#: log.py:79
+msgid "Leave a comment"
+msgstr "Déposer un commentaire"
 
 #: templates/admin_only.html:2
 msgid "NYC Log - Admin only"
@@ -155,6 +163,26 @@ msgstr "Journal de New York"
 #: templates/post.html:4
 msgid "&lt; Back"
 msgstr "&lt; Retour"
+
+#: templates/post.html:12
+msgid "Comments"
+msgstr "Commentaires"
+
+#: templates/post.html:18
+msgid "Comment"
+msgstr "Commentaire"
+
+#: templates/post.html:23
+msgid "By"
+msgstr "De"
+
+#: templates/post.html:27
+msgid "No comments yet"
+msgstr "Pas encore de commentaire déposé"
+
+#: templates/post.html:31
+msgid "Log in to leave a comment"
+msgstr "Authentifiez vous pour déposer un commentaire"
 
 #: templates/admin/categories.html:6
 msgid "Add a category"

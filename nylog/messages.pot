@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-08-21 00:26+0200\n"
+"POT-Creation-Date: 2014-08-27 00:08-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,75 +17,75 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: admin.py:99 auth.py:110 templates/admin/users.html:25
+#: admin.py:101 auth.py:110 templates/admin/users.html:25
 msgid "Login"
 msgstr ""
 
-#: admin.py:100 auth.py:111
+#: admin.py:102 auth.py:111
 msgid "Password"
-msgstr ""
-
-#: admin.py:133
-#, python-format
-msgid "Reader %(login)s added !"
 msgstr ""
 
 #: admin.py:135
 #, python-format
+msgid "Reader %(login)s added !"
+msgstr ""
+
+#: admin.py:137
+#, python-format
 msgid "Login '%(login)s' already taken"
 msgstr ""
 
-#: admin.py:146
+#: admin.py:148
 msgid "Reader deleted !"
 msgstr ""
 
-#: admin.py:168
+#: admin.py:170
 msgid "Title"
 msgstr ""
 
-#: admin.py:169
+#: admin.py:171
 msgid "Content"
 msgstr ""
 
-#: admin.py:170
+#: admin.py:172
 msgid "Date"
 msgstr ""
 
-#: admin.py:172
+#: admin.py:174
 msgid "Covers whole week"
 msgstr ""
 
-#: admin.py:173 templates/admin/categories.html:3
+#: admin.py:175 templates/admin/categories.html:3
 #: templates/admin/categories.html:21 templates/admin/layout.html:19
 msgid "Categories"
 msgstr ""
 
-#: admin.py:202
+#: admin.py:204
 msgid "Entry published !"
 msgstr ""
 
-#: admin.py:209 templates/admin/categories.html:25
+#: admin.py:211 templates/admin/categories.html:25
 msgid "Name"
 msgstr ""
 
-#: admin.py:210 templates/admin/categories.html:36
+#: admin.py:212 templates/admin/categories.html:36
 msgid "Public"
 msgstr ""
 
-#: admin.py:211
+#: admin.py:213
 msgid "Allowed readers"
 msgstr ""
 
-#: admin.py:240
+#: admin.py:242
 msgid "Category added !"
 msgstr ""
 
-#: admin.py:242
+#: admin.py:244
 #, python-format
 msgid "Category '%(category)s' already exists."
 msgstr ""
 
-#: admin.py:252
+#: admin.py:254
 msgid "Category deleted !"
 msgstr ""
 
@@ -104,6 +104,14 @@ msgstr ""
 
 #: auth.py:100
 msgid "Login and password didn't match."
+msgstr ""
+
+#: log.py:69
+msgid "Comment saved"
+msgstr ""
+
+#: log.py:79
+msgid "Leave a comment"
 msgstr ""
 
 #: templates/admin_only.html:2
@@ -152,6 +160,26 @@ msgstr ""
 
 #: templates/post.html:4
 msgid "&lt; Back"
+msgstr ""
+
+#: templates/post.html:12
+msgid "Comments"
+msgstr ""
+
+#: templates/post.html:18
+msgid "Comment"
+msgstr ""
+
+#: templates/post.html:23
+msgid "By"
+msgstr ""
+
+#: templates/post.html:27
+msgid "No comments yet"
+msgstr ""
+
+#: templates/post.html:31
+msgid "Log in to leave a comment"
 msgstr ""
 
 #: templates/admin/categories.html:6

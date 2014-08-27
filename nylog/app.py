@@ -3,7 +3,15 @@ from flask.ext.babel import Babel, format_datetime
 from flask_wtf import CsrfProtect
 import arrow
 
-app = Flask('nylog')
+class NYLogApp(Flask):
+    def post(self, rule, **options):
+        def decorator(f):
+            options['methods'] = ['POST']
+            self.add_url_rule(rule, None, f, **options)
+            return f
+        return decorator
+
+app = NYLogApp('nylog')
 
 app.config.update(
     NYLOG_ADMIN = 'admin',
@@ -40,6 +48,10 @@ def format_date_local(date):
 @app.template_global()
 def static(filename):
     return url_for('static', filename = filename)
+
+@app.template_global()
+def current_url():
+    return request.path
 
 # from http://flask.pocoo.org/snippets/28/
 import re
