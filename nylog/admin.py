@@ -122,7 +122,7 @@ def admin_users(form = None):
     return render_template('admin/users.html', users = users, form_new = form,
                            delete_user = DeleteForm.for_class(User))
 
-@app.route('/admin/user/create', methods = ['POST'])
+@app.post('/admin/user/create')
 @admin_required
 def create_user():
     form = NewUserForm()
@@ -140,7 +140,7 @@ def create_user():
     else:
         return admin_users(form)
 
-@app.route('/admin/user/delete', methods = ['POST'])
+@app.post('/admin/user/delete')
 @admin_required
 def delete_user():
     if DeleteForm.validate_and_delete_for(User):
@@ -185,7 +185,7 @@ class NewPostForm(Form):
 def write_post():
     return render_template('admin/write_post.html', form = NewPostForm())
 
-@app.route('/admin/post/new', methods = ['POST'])
+@app.post('/admin/post/new')
 @admin_required
 def new_post():
     form = NewPostForm()
@@ -224,7 +224,7 @@ def categories(form = None):
                            categories = Category.query.all(),
                            delete_category = DeleteForm.for_class(Category))
 
-@app.route('/admin/category/new', methods = ['POST'])
+@app.post('/admin/category/new')
 @admin_required
 def new_category():
     form = NewCategoryForm()
@@ -246,7 +246,7 @@ def new_category():
         return redirect(url_for('categories'))
     return categories(form)
 
-@app.route('/admin/category/delete', methods = ['POST'])
+@app.post('/admin/category/delete')
 @admin_required
 def delete_category():
     if DeleteForm.validate_and_delete_for(Category):

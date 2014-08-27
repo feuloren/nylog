@@ -2,7 +2,15 @@ from flask import Flask, render_template, request
 from flask.ext.babel import Babel, format_datetime
 import arrow
 
-app = Flask('nylog')
+class NYLogApp(Flask):
+    def post(self, rule, **options):
+        def decorator(f):
+            options['methods'] = ['POST']
+            self.add_url_rule(rule, None, f, **options)
+            return f
+        return decorator
+
+app = NYLogApp('nylog')
 
 app.config.update(
     NYLOG_ADMIN = 'admin',
