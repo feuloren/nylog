@@ -26,7 +26,7 @@ class Parser:
         current_element = []
         contexts = [self.bootstrap_rule()]
 
-        for line in text.split("\n"):
+        for line in text.replace('\r', '').split("\n"):
             rule = contexts.pop()
             
             if line and line[0] == self.command_marker:
@@ -54,6 +54,7 @@ class Parser:
                 contexts.append(rule)
 
         contexts.reverse()
+
         for rule in contexts:
             elements.append(rule.element())
 
