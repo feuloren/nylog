@@ -1,7 +1,7 @@
 {% extends "admin/layout.html" %}
 {% import "admin/forms.html" as forms %}
 {% block content %}
-<form action="{{ url_for('new_post') }}" method="POST" class="pure-form">
+<form action="{{ action }}" method="POST" class="pure-form">
 {{ form.hidden_tag() }}
 {{ forms.basic_field(form.title, class="pure-input-2-3") }}
 <div>
@@ -13,7 +13,7 @@
   <p id="upload"><label>{% trans %}Add image{% endtrans %}</label><input type="file"></p>
 </div>
 <div>{{ forms.basic_field(form.categories, class="list-unstyled") }}</div>
-<input type="submit" value="{% trans %}Publish{% endtrans %}"
+<input type="submit" value="{{ main_button_label }}"
        class="pure-button pure-button-primary"/>
 </form>
 

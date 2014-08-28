@@ -37,6 +37,7 @@ class Post(db.Model):
 
     categories = db.relationship('Category',
                                  secondary = posts_categories,
+                                 lazy = 'dynamic',
                                  backref = db.backref('posts',
                                                       lazy = 'dynamic'))
 

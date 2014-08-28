@@ -6,8 +6,9 @@ from .auth import admin_required
 from flask_scrypt import generate_password_hash, generate_random_salt
 from wtforms.validators import DataRequired
 from wtforms import (StringField, HiddenField, PasswordField, BooleanField,
-                     TextAreaField, DateField, SelectMultipleField)
-from wtforms.widgets import ListWidget, CheckboxInput
+                     TextAreaField, DateField, SelectMultipleField,
+                     IntegerField)
+from wtforms.widgets import ListWidget, CheckboxInput, HiddenInput
 from flask_wtf import Form
 from flask_wtf.file import FileField, FileAllowed, FileRequired
 from werkzeug import secure_filename
@@ -99,7 +100,8 @@ class ClassChoices:
 @app.route('/admin/')
 @admin_required
 def admin_home():
-    return render_template('admin/index.html')
+    posts = Post.query.order_by('covered_period')
+    return render_template('admin/index.html', posts = posts)
 
 # Users
 class NewUserForm(Form):
@@ -185,10 +187,19 @@ class NewPostForm(Form):
     def get_slug(self):
         return slugify(self.title.data)
 
+    def fill_post_object(self, post):
+        post.title = self.title.data
+        post.content = self.content.data
+        post.covered_period = self.covered_period.data
+        post.covers_week = self.week.data
+        post.categories.extend(Category.query.filter(Category.name.in_(self.categories.data)))
+
+        return post
+
 @app.route('/admin/post/write')
 @admin_required
 def write_post():
-    return render_template('admin/write_post.html', form = NewPostForm(prefix='post-'))
+    return render_template('admin/new_post.html', form = NewPostForm(prefix='post-'))
 
 @app.post('/admin/post/new')
 @admin_required
@@ -196,20 +207,47 @@ def new_post():
     form = NewPostForm(prefix='post-')
     if form.validate():
         post = Post()
-        post.title = form.title.data
+        form.fill_post_object(post)
         post.slug = form.get_slug()
-        post.content = form.content.data
-        post.covered_period = form.covered_period.data
-        post.covers_week = form.week.data
-        post.categories.extend(Category.query.filter(Category.name.in_(form.categories.data)))
         
         db.session.add(post)
         db.session.commit()
 
         flash(_('Entry published !'))
         return redirect(url_for('write_post'))
-    return render_template('admin/write_post.html', form = form)
+    return render_template('admin/new_post.html', form = form)
 
+class EditPostForm(NewPostForm):
+    id = IntegerField(widget = HiddenInput(), validators = [DataRequired()])
+
+@app.route('/admin/post/edit/<int:id>')
+@admin_required
+def edit_post(id, form = None):
+    post = Post.query.get_or_404(id)
+    if form is None:
+        form = EditPostForm(prefix = 'post-')
+        form.id.data = post.id
+        form.title.data = post.title
+        form.content.data = post.content
+        form.covered_period.data = post.covered_period
+        form.week.data = post.covers_week
+        form.categories.data = (v[0] for v in post.categories.values('name'))
+    return render_template('admin/update_post.html', form = form)
+
+@app.post('/admin/post/update')
+@admin_required
+def update_post():
+    form = EditPostForm(prefix = 'post-')
+    if form.validate():
+        post = Post.query.get_or_404(form.id.data)
+        form.fill_post_object(post)
+        # We don't change to slug
+
+        db.session.commit()
+        
+        flash(_('Post "%(title)s" updated', title = post.title))
+        return redirect(url_for('admin_home'))
+    return render_template('admin/update_post.html', form = form)    
 
 # Categories
 class NewCategoryForm(Form):
@@ -290,9 +328,6 @@ def upload_image():
                         'resized' : resized_path})
     else:
         abort(400)
-
-def crop_image(image):
-    return ""
 
 def resize_image(location, max_width):
     """Downscale an image if its width is greater than `max_width`

@@ -1,1 +1,29 @@
 {% extends "admin/layout.html" %}
+
+{% block content %}
+<h2 class="content-subhead">{% trans %}Published posts{% endtrans %}</h2>
+
+<table class="pure-table pure-table-bordered pure-table-striped">
+  <thead>
+    <tr>
+      <th>{% trans %}Title{% endtrans %}</th>
+      <th>{% trans %}Covered period{% endtrans %}</th>
+      <th>{% trans %}Categories{% endtrans %}</th>
+      <th>{% trans %}Comments{% endtrans %}</th>
+      <th>{% trans %}Edit{% endtrans %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for post in posts %}
+      <tr>
+        <td><a href="{{ url_for('show_post', id = post.id, slug = post.slug) }}" target="_blank">{{ post.title }}</a></td>
+        <td>{{ post.covered_period }}
+        {% if post.covers_week %}{% trans %}(Whole week){% endtrans %}{% endif %}</td>
+        <td>{% for cat in post.categories %}{{ cat.name }} {% endfor %}</td>
+        <td>{{ post.comments.count() }}</td>
+        <td><a href="{{ url_for('edit_post', id = post.id) }}" class="pure-button">E</a></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
