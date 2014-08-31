@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-08-27 00:08-0400\n"
+"POT-Creation-Date: 2014-08-31 00:30-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,75 +17,81 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: admin.py:101 auth.py:110 templates/admin/users.html:25
+#: admin.py:108 auth.py:110 templates/admin/users.html:25
 msgid "Login"
 msgstr ""
 
-#: admin.py:102 auth.py:111
+#: admin.py:109 auth.py:111
 msgid "Password"
 msgstr ""
 
-#: admin.py:135
+#: admin.py:142
 #, python-format
 msgid "Reader %(login)s added !"
 msgstr ""
 
-#: admin.py:137
+#: admin.py:144
 #, python-format
 msgid "Login '%(login)s' already taken"
 msgstr ""
 
-#: admin.py:148
+#: admin.py:155
 msgid "Reader deleted !"
 msgstr ""
 
-#: admin.py:170
+#: admin.py:177 templates/admin/index.html:9
 msgid "Title"
 msgstr ""
 
-#: admin.py:171
+#: admin.py:178
 msgid "Content"
 msgstr ""
 
-#: admin.py:172
+#: admin.py:179
 msgid "Date"
 msgstr ""
 
-#: admin.py:174
+#: admin.py:181
 msgid "Covers whole week"
 msgstr ""
 
-#: admin.py:175 templates/admin/categories.html:3
-#: templates/admin/categories.html:21 templates/admin/layout.html:19
+#: admin.py:182 templates/admin/categories.html:3
+#: templates/admin/categories.html:21 templates/admin/index.html:11
+#: templates/admin/layout.html:20
 msgid "Categories"
 msgstr ""
 
-#: admin.py:204
+#: admin.py:216
 msgid "Entry published !"
 msgstr ""
 
-#: admin.py:211 templates/admin/categories.html:25
+#: admin.py:248
+#, python-format
+msgid "Post \"%(title)s\" updated"
+msgstr ""
+
+#: admin.py:254 templates/admin/categories.html:25
 msgid "Name"
 msgstr ""
 
-#: admin.py:212 templates/admin/categories.html:36
+#: admin.py:255 templates/admin/categories.html:36
 msgid "Public"
 msgstr ""
 
-#: admin.py:213
+#: admin.py:256
 msgid "Allowed readers"
 msgstr ""
 
-#: admin.py:242
+#: admin.py:285
 msgid "Category added !"
 msgstr ""
 
-#: admin.py:244
+#: admin.py:287
 #, python-format
 msgid "Category '%(category)s' already exists."
 msgstr ""
 
-#: admin.py:254
+#: admin.py:297
 msgid "Category deleted !"
 msgstr ""
 
@@ -106,11 +112,11 @@ msgstr ""
 msgid "Login and password didn't match."
 msgstr ""
 
-#: log.py:69
+#: log.py:70
 msgid "Comment saved"
 msgstr ""
 
-#: log.py:79
+#: log.py:80
 msgid "Leave a comment"
 msgstr ""
 
@@ -132,6 +138,18 @@ msgstr ""
 
 #: templates/home.html:2 templates/log_layout.html:24
 msgid "Florent's NYC Log"
+msgstr ""
+
+#: templates/home.html:15
+msgid "Read more"
+msgstr ""
+
+#: templates/home.html:18
+msgid "or"
+msgstr ""
+
+#: templates/home.html:21
+msgid "Back to previous page"
 msgstr ""
 
 #: templates/log_layout.html:13
@@ -162,23 +180,23 @@ msgstr ""
 msgid "&lt; Back"
 msgstr ""
 
-#: templates/post.html:12
+#: templates/post.html:13 templates/admin/index.html:12
 msgid "Comments"
 msgstr ""
 
-#: templates/post.html:18
+#: templates/post.html:19
 msgid "Comment"
 msgstr ""
 
-#: templates/post.html:23
+#: templates/post.html:24
 msgid "By"
 msgstr ""
 
-#: templates/post.html:27
+#: templates/post.html:28
 msgid "No comments yet"
 msgstr ""
 
-#: templates/post.html:31
+#: templates/post.html:32
 msgid "Log in to leave a comment"
 msgstr ""
 
@@ -190,7 +208,7 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
-#: templates/admin/categories.html:26 templates/admin/layout.html:17
+#: templates/admin/categories.html:26 templates/admin/layout.html:18
 #: templates/admin/users.html:3
 msgid "Readers"
 msgstr ""
@@ -203,20 +221,44 @@ msgstr ""
 msgid "Private"
 msgstr ""
 
+#: templates/admin/index.html:4
+msgid "Published posts"
+msgstr ""
+
+#: templates/admin/index.html:10
+msgid "Covered period"
+msgstr ""
+
+#: templates/admin/index.html:13
+msgid "Edit"
+msgstr ""
+
+#: templates/admin/index.html:21
+msgid "(Whole week)"
+msgstr ""
+
 #: templates/admin/layout.html:4
 msgid "NYLog Admin"
 msgstr ""
 
-#: templates/admin/layout.html:14
+#: templates/admin/layout.html:15
 msgid "&lt; Log"
 msgstr ""
 
-#: templates/admin/layout.html:16
+#: templates/admin/layout.html:17
 msgid "Home"
 msgstr ""
 
-#: templates/admin/layout.html:18
+#: templates/admin/layout.html:19
 msgid "Write entry"
+msgstr ""
+
+#: templates/admin/new_post.html:2
+msgid "Publish"
+msgstr ""
+
+#: templates/admin/update_post.html:2
+msgid "Update"
 msgstr ""
 
 #: templates/admin/users.html:6
@@ -232,6 +274,6 @@ msgid "ID"
 msgstr ""
 
 #: templates/admin/write_post.html:13
-msgid "Publish"
+msgid "Add image"
 msgstr ""
 

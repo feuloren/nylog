@@ -12,13 +12,13 @@
 {% endfor %}
 <div id="pagination">
   {% if paginate.has_next %}
-    <a href="{{ url_for('index', page = paginate.next_num) }}">Read more</a>
+    <a href="{{ url_for('index', page = paginate.next_num) }}">{% trans %}Read more{% endtrans %}</a>
   {% endif %}
   {% if paginate.has_next and paginate.has_prev %}
-    or
+    {% trans %}or{% endtrans %}
   {% endif %}
   {% if paginate.has_prev %}
-    <a href="{{ url_for('index', page = paginate.prev_num) }}">Back to previous page</a>
+    <a href="{{ url_for('index', page = paginate.prev_num) }}">{% trans %}Back to previous page{% endtrans %}</a>
   {% endif %}
   </div>
 </div>
