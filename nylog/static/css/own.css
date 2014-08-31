@@ -98,6 +98,25 @@ img.float-left, img.float-right {
     clear: both;
 }
 
+#pagination {
+    font-size: 20px;
+    text-align: center;
+    padding-top: 5px;
+    border-top: 1px solid #989898;
+    margin-bottom: 20px;
+}
+
+#pagination a {
+    color: black;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 5px;
+}
+
+#pagination a:hover {
+    background-color: rgb(197, 197, 197);
+}
+
 @media screen and (max-device-width: 480px) {
     h1 {
         margin-bottom: 10px;

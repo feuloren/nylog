@@ -23,18 +23,15 @@ def posts_for_current_user():
         # They can only see public posts
         return Post.query.join(Post.categories).filter(Category.public == True)
 
-@app.route('/')
-def index():
+@app.route('/', defaults = {'page' : 1})
+@app.route('/posts/page/<int:page>')
+def index(page):
     query = posts_for_current_user()
-    posts = query.group_by(Post.id).order_by(Post.covered_period.desc()).limit(5)
-    return render_template("home.html", posts = posts,
-                           parse_post = summary_parser())
-
-
-@app.route('/posts')
-def old_posts():
-    posts = Post.query.paginate(page, 5, error_out = False)
-    return render_template("old.html", posts = posts)
+    posts = query.group_by(Post.id).order_by(Post.covered_period.desc()).\
+            paginate(page, 5, error_out = False)
+    return render_template("home.html", posts = posts.items,
+                           parse_post = summary_parser(),
+                           paginate = posts)
 
 
 @app.route('/post/<int:id>/<slug>')
