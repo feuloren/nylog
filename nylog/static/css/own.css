@@ -28,6 +28,25 @@ h1 small {
     display: block;
 }
 
+.post-summary h2 {
+    margin-top: 0px;
+}
+
+.post-summary h2 a {
+    text-decoration: none;
+    color: black;
+    font-weight: 700;
+    padding: 0px 5px 5px 5px;
+}
+
+.post-summary h2 a:visited {
+    color: rgb(100, 100, 100);
+}
+
+.post-summary h2 a:hover {
+    background-color: rgb(0, 197, 0);
+}
+
 #navigation {
     float: left;
     padding: 15px;
@@ -38,6 +57,20 @@ h1 small {
     font-weight: 600;
     text-decoration: none;
     color: black;
+}
+
+.post-summary:hover {
+    border-left: 1px solid rgb(0,197,0);/*rgb(200, 30, 30);*/
+    margin-left: -1px;
+}
+
+.post-summary {
+    margin-top: 20px;
+    /*padding-left: 5px;*/
+}
+
+.post-summary p {
+    padding-left: 5px;
 }
 
 #content .article-width {
@@ -117,6 +150,51 @@ img.float-left, img.float-right {
     background-color: rgb(197, 197, 197);
 }
 
+.login-form {
+    margin: 0px auto;
+    position: relative;
+    width: 300px;
+    font-size: 22px;
+}
+
+.login-form .control {
+    text-align: right;
+    padding-bottom: 5px;
+}
+
+.login-form label {
+    float: left;
+}
+
+.login-form .control input[type=text], .login-form .control input[type=password] {
+    display: inline-block;
+    text-align: left;
+    border: 1px solid #A8A8A8;
+    padding: 8px;
+    border-radius: 5px;
+    background-color: #F6F6F6;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3) inset, 0px 1px rgba(255, 255, 255, 0.06);
+}
+
+.login-form .login-button {
+    background-color: rgb(188, 188, 188);
+    border: 1px solid rgb(174, 174, 174);;
+    padding: 4px;
+    font-size: 22px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.login-form .login-button:hover {
+    background-color: rgb(160, 160, 160);
+    text-shadow: none;
+}
+
+.login-form .control input[type=text]:focus, .login-form .control input[type=password]:focus {
+    border: 1px solid rgb(51, 135, 0);
+    background-color: rgb(254, 254, 254);
+}
+
 @media screen and (max-device-width: 480px) {
     h1 {
         margin-bottom: 10px;
@@ -136,4 +214,14 @@ img.float-left, img.float-right {
         font-size: 36px;
         padding: 10px;
     }
+
+    .post-summary p {
+	padding-left: 0px;
+    }
+
+    .post-summary:hover {
+	padding-left: 0px;
+	border: 0px;
+    }
+
 }

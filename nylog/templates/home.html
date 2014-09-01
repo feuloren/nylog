@@ -3,23 +3,24 @@
 {% block content %}
 {% for post in posts %}
 <div class="post-summary">
-<h2><a href="{{ url_for('show_post', id = post.id, slug = post.slug) }}">{{ post.title }}</a>
+<h2><a href="{{ url_for('show_post', id = post.id, slug = post.slug) }}">{{ post.title.strip() }}</a>
 <small>{{ post.created_at | format_date_local }}</small></h2>
 <p>
 {{ parse_post(post.content) | truncate(255, True) }}
 </p>
 </div>
 {% endfor %}
-<div id="pagination">
-  {% if paginate.has_next %}
-    <a href="{{ url_for('index', page = paginate.next_num) }}">{% trans %}Read more{% endtrans %}</a>
-  {% endif %}
-  {% if paginate.has_next and paginate.has_prev %}
-    {% trans %}or{% endtrans %}
-  {% endif %}
-  {% if paginate.has_prev %}
-    <a href="{{ url_for('index', page = paginate.prev_num) }}">{% trans %}Back to previous page{% endtrans %}</a>
-  {% endif %}
+{% if paginate.has_next or paginate.has_prev %}
+  <div id="pagination">
+    {% if paginate.has_next %}
+      <a href="{{ url_for('index', page = paginate.next_num) }}">{% trans %}Read more{% endtrans %}</a>
+    {% endif %}
+    {% if paginate.has_next and paginate.has_prev %}
+      {% trans %}or{% endtrans %}
+    {% endif %}
+    {% if paginate.has_prev %}
+      <a href="{{ url_for('index', page = paginate.prev_num) }}">{% trans %}Back to previous page{% endtrans %}</a>
+    {% endif %}
   </div>
-</div>
+{% endif %}
 {% endblock %}
